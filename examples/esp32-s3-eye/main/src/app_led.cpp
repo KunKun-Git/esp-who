@@ -43,13 +43,13 @@ void AppLED::update()
         mode = LED_BLINK_1S;
     }
     // parse speech recognition
-    else if (this->sr->detected)
-    {
-        if (this->sr->command > COMMAND_NOT_DETECTED)
-            mode = LED_BLINK_1S;
-        else
-            mode = LED_ALWAYS_ON;
-    }
+    // else if (this->sr->detected)
+    // {
+    //     if (this->sr->command > COMMAND_NOT_DETECTED)
+    //         mode = LED_BLINK_1S;
+    //     else
+    //         mode = LED_ALWAYS_ON;
+    // }
 
     // do
     switch (mode)

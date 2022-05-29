@@ -27,14 +27,14 @@ void AppMotion::update()
         }
     }
 
-    if (this->speech->command > COMMAND_NOT_DETECTED)
-    {
-        if (this->speech->command >= MENU_STOP_WORKING && this->speech->command <= MENU_MOTION_DETECTION)
-        {
-            this->switch_on = (this->speech->command == MENU_MOTION_DETECTION) ? true : false;
-            ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
-        }
-    }
+    // if (this->speech->command > COMMAND_NOT_DETECTED)
+    // {
+    //     if (this->speech->command >= MENU_STOP_WORKING && this->speech->command <= MENU_MOTION_DETECTION)
+    //     {
+    //         this->switch_on = (this->speech->command == MENU_MOTION_DETECTION) ? true : false;
+    //         ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
+    //     }
+    // }
 }
 
 static void task(AppMotion *self)

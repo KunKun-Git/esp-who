@@ -108,31 +108,31 @@ void AppFace::update()
     }
 
     // Parse speech recognition
-    if (this->speech->command > COMMAND_NOT_DETECTED)
-    {
-        if (this->speech->command >= MENU_STOP_WORKING && this->speech->command <= MENU_MOTION_DETECTION)
-        {
-            this->state = FACE_IDLE;
-            this->switch_on = (this->speech->command == MENU_FACE_RECOGNITION) ? true : false;
-            ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
-        }
-        else if (this->speech->command == ACTION_ENROLL)
-        {
-            this->state = FACE_ENROLL;
-        }
-        else if (this->speech->command == ACTION_RECOGNIZE)
-        {
-            this->state = FACE_RECOGNIZE;
-        }
-        else if (this->speech->command == ACTION_CONFIRM)
-        {
-            this->state = FACE_CONFIRM;
-        }        
-        else if (this->speech->command == ACTION_DELETE)
-        {
-            this->state = FACE_DELETE;
-        }
-    }
+    // if (this->speech->command > COMMAND_NOT_DETECTED)
+    // {
+    //     if (this->speech->command >= MENU_STOP_WORKING && this->speech->command <= MENU_MOTION_DETECTION)
+    //     {
+    //         this->state = FACE_IDLE;
+    //         this->switch_on = (this->speech->command == MENU_FACE_RECOGNITION) ? true : false;
+    //         ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
+    //     }
+    //     else if (this->speech->command == ACTION_ENROLL)
+    //     {
+    //         this->state = FACE_ENROLL;
+    //     }
+    //     else if (this->speech->command == ACTION_RECOGNIZE)
+    //     {
+    //         this->state = FACE_RECOGNIZE;
+    //     }
+    //     else if (this->speech->command == ACTION_CONFIRM)
+    //     {
+    //         this->state = FACE_CONFIRM;
+    //     }        
+    //     else if (this->speech->command == ACTION_DELETE)
+    //     {
+    //         this->state = FACE_DELETE;
+    //     }
+    // }
     ESP_LOGD(TAG, "Human face recognition state = %d", this->state);
 }
 
