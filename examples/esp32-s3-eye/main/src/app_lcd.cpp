@@ -21,7 +21,7 @@ AppLCD::AppLCD(AppButton *key,
                void (*callback)(camera_fb_t *)) : Frame(queue_i, queue_o, callback),
                                                   key(key),
                                                   speech(speech),
-                                                  switch_on(false)
+                                                  switch_on(true)
 {
     do
     {
@@ -72,10 +72,10 @@ AppLCD::AppLCD(AppButton *key,
         this->driver.get_info(&lcd_info);
         ESP_LOGI(TAG, "Screen name:%s | width:%d | height:%d", lcd_info.name, lcd_info.width, lcd_info.height);
 
-        this->draw_color(0x000000);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        this->draw_wallpaper();
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        // this->draw_color(0x000000);
+        // vTaskDelay(pdMS_TO_TICKS(500));
+        // this->draw_wallpaper();
+        // vTaskDelay(pdMS_TO_TICKS(1000));
     } while (0);
 }
 
@@ -121,14 +121,15 @@ void AppLCD::draw_color(int color)
 
 void AppLCD::update()
 {
-    if (this->key->pressed > BUTTON_IDLE)
-    {
-        if (this->key->pressed == BUTTON_MENU)
-        {
-            this->switch_on = (this->key->menu == MENU_STOP_WORKING) ? false : true;
-            ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
-        }
-    }
+    this->switch_on = true;
+    // if (this->key->pressed > BUTTON_IDLE)
+    // {
+    //     if (this->key->pressed == BUTTON_MENU)
+    //     {
+    //         this->switch_on = (this->key->menu == MENU_STOP_WORKING) ? false : true;
+    //         ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
+    //     }
+    // }
 
     // if (this->speech->command > COMMAND_NOT_DETECTED)
     // {

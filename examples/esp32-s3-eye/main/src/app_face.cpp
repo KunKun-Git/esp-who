@@ -89,9 +89,9 @@ void AppFace::update()
     {
         if (this->key->pressed == BUTTON_MENU)
         {
-            this->state = FACE_IDLE;
-            this->switch_on = (this->key->menu == MENU_FACE_RECOGNITION) ? true : false;
+            this->switch_on = true;
             ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
+            this->state = FACE_CONFIRM;
         }
         else if (this->key->pressed == BUTTON_PLAY)
         {

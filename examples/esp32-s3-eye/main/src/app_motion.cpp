@@ -18,14 +18,14 @@ AppMotion::AppMotion(AppButton *key,
 
 void AppMotion::update()
 {
-    if (this->key->pressed > BUTTON_IDLE)
-    {
-        if (this->key->pressed == BUTTON_MENU)
-        {
-            this->switch_on = (this->key->menu == MENU_MOTION_DETECTION) ? true : false;
-            ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
-        }
-    }
+    // if (this->key->pressed > BUTTON_IDLE)
+    // {
+    //     if (this->key->pressed == BUTTON_MENU)
+    //     {
+    //         this->switch_on = (this->key->menu == MENU_MOTION_DETECTION) ? true : false;
+    //         ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
+    //     }
+    // }
 
     // if (this->speech->command > COMMAND_NOT_DETECTED)
     // {

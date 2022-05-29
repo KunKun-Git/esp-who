@@ -182,7 +182,7 @@ extern "C" void app_main()
     wifi_init_sta();
     mqtt_app_start();
 
-    vTaskDelay(2000);
+    vTaskDelay(500);
 
     QueueHandle_t xQueueFrame_0 = xQueueCreate(2, sizeof(camera_fb_t *));
     QueueHandle_t xQueueFrame_1 = xQueueCreate(2, sizeof(camera_fb_t *));
