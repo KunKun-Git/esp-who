@@ -21,7 +21,8 @@ typedef enum
 
     ACTION_ENROLL = 4,
     ACTION_DELETE = 5,
-    ACTION_RECOGNIZE = 6
+    ACTION_RECOGNIZE = 6,
+    ACTION_CONFIRM = 7
 } command_word_t;
 
 class Observer

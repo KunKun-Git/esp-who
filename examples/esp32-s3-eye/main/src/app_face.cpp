@@ -11,6 +11,7 @@
 #include "who_ai_utils.hpp"
 
 static const char TAG[] = "App/Face";
+static const char *IDto16[] = {"l4d:0027","l4d:2017"}; // 将识别的ID与身份证号后四位对应并输出
 
 #define RGB565_MASK_RED 0xF800
 #define RGB565_MASK_GREEN 0x07E0
@@ -123,6 +124,10 @@ void AppFace::update()
         {
             this->state = FACE_RECOGNIZE;
         }
+        else if (this->speech->command == ACTION_CONFIRM)
+        {
+            this->state = FACE_CONFIRM;
+        }        
         else if (this->speech->command == ACTION_DELETE)
         {
             this->state = FACE_DELETE;
@@ -173,6 +178,10 @@ static void task(AppFace *self)
                             ESP_LOGI(TAG, "Match ID: %d", self->recognize_result.id);
                         break;
 
+                    // case FACE_CONFIRM:
+                    //     ESP_LOGD(TAG, "wait for confirm");
+                    //     break;
+
                     case FACE_DELETE:
                         vTaskDelay(10);
                         self->recognizer->delete_id(true);
@@ -199,9 +208,13 @@ static void task(AppFace *self)
 
                     case FACE_RECOGNIZE:
                         if (self->recognize_result.id > 0)
-                            rgb_printf(frame, RGB565_MASK_GREEN, "ID %d", self->recognize_result.id);
+                            rgb_printf(frame, RGB565_MASK_GREEN, "%s", IDto16[self->recognize_result.id - 1]);
                         else
                             rgb_print(frame, RGB565_MASK_RED, "who ?");
+                        break;
+
+                    case FACE_CONFIRM:
+                        rgb_print(frame, RGB565_MASK_GREEN, "confirmed");
                         break;
 
                     case FACE_ENROLL:

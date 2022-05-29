@@ -23,7 +23,8 @@ typedef enum
     FACE_IDLE = 0,
     FACE_ENROLL = 1,
     FACE_RECOGNIZE = 2,
-    FACE_DELETE = 3,
+    FACE_CONFIRM = 3,
+    FACE_DELETE = 4,    
 } face_action_t;
 
 class AppFace : public Observer, public Frame
