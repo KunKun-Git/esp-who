@@ -30,7 +30,7 @@
 #include "mqtt_client.h"
 #include "app_mqtt.h"
 
-static const char *TAG = "MQTTWS_EXAMPLE";
+static const char *TAG = "MQTTWS_EYE";
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -107,18 +107,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
 void mqtt_app_start(void)
 {
-    ESP_LOGI(TAG, "[APP] Startup..");
-    ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
-    ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
-
-    ESP_ERROR_CHECK(nvs_flash_init());
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-    ESP_LOGI(TAG, "__________going into example connect!");
-    ESP_ERROR_CHECK(example_connect());
-
-    ESP_LOGI(TAG, "__________example connected!");
+    ESP_LOGI(TAG, "__________mqtt starting!");
     const esp_mqtt_client_config_t mqtt_cfg = {
         .uri = "ws://123.56.251.102:8083/mqtt",
     };
@@ -127,7 +116,6 @@ void mqtt_app_start(void)
     ESP_LOGI(TAG, "__________mqtt init successed!");
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    ESP_LOGI(TAG, "__________mqtt regist successed!");
     esp_mqtt_client_start(client);
     ESP_LOGI(TAG, "__________mqtt start successed!");
 }
