@@ -27,10 +27,11 @@
 #include "lwip/netdb.h"
 
 #include "esp_log.h"
-#include "mqtt_client.h"
+
 #include "app_mqtt.h"
 
 static const char *TAG = "MQTTWS_EYE";
+esp_mqtt_client_handle_t clientGlobal;
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -113,12 +114,12 @@ void mqtt_app_start(void)
     const esp_mqtt_client_config_t mqtt_cfg = {
         .uri = "ws://123.56.251.102:8083/mqtt",
     };
-
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    
+    clientGlobal = esp_mqtt_client_init(&mqtt_cfg);
     ESP_LOGI(TAG, "__________mqtt init successed!");
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    esp_mqtt_client_start(client);
+    esp_mqtt_client_register_event(clientGlobal, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_start(clientGlobal);
     ESP_LOGI(TAG, "__________mqtt start successed!");
 }
 

@@ -9,6 +9,9 @@
 #include "fb_gfx.h"
 
 #include "who_ai_utils.hpp"
+#include "mqtt_client.h"
+#include "app_mqtt.h"
+
 
 static const char TAG[] = "App/Face";
 static const char *IDto16[] = {"l4d:0027","l4d:2017"}; // 将识别的ID与身份证号后四位对应并输出
@@ -62,8 +65,8 @@ AppFace::AppFace(AppButton *key,
                                                     speech(speech),
                                                     detector(0.3F, 0.3F, 10, 0.3F),
                                                     detector2(0.4F, 0.3F, 10),
-                                                    state(FACE_IDLE),
-                                                    switch_on(false)
+                                                    state(FACE_RECOGNIZE),
+                                                    switch_on(true)
 {
 #if CONFIG_MFN_V1
 #if CONFIG_S8
@@ -92,6 +95,9 @@ void AppFace::update()
             this->switch_on = true;
             ESP_LOGD(TAG, "%s", this->switch_on ? "ON" : "OFF");
             this->state = FACE_CONFIRM;
+            
+            int msg_id = esp_mqtt_client_publish(clientGlobal, "/topic/ID", IDto16[this->recognize_result.id - 1], 0, 1, 0);
+            ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         }
         else if (this->key->pressed == BUTTON_PLAY)
         {
